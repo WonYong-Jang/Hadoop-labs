@@ -1,4 +1,4 @@
-package com.kookmin.kr;
+package com.kookmin.one;
 
 import java.io.IOException;
 import java.util.StringTokenizer;

@@ -1,4 +1,4 @@
-package com.kookmin.kr;
+package com.kookmin.one;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
