@@ -2,6 +2,7 @@ package com.kookmin.two;
 
 import java.io.IOException;
 
+import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
@@ -10,7 +11,15 @@ import org.apache.hadoop.mapreduce.Reducer;
  * 맵의 output 인자와 리듀스의 input 인자는 같아야 한다.
  */
 public class MostReviewsReducer extends Reducer<Text, IntWritable, Text, IntWritable>{
-    private IntWritable result = new IntWritable();
+    //private IntWritable result = new IntWritable();
+    
+    private int maxCount;
+    private String reviewer;
+    @Override
+    protected void setup(Context context) throws IOException, InterruptedException{
+    	maxCount = context.getConfiguration().getInt("maxCount", 0);
+    	reviewer = context.getConfiguration().get("reviewer");
+    }
     
     @Override
     protected void reduce(Text key, Iterable<IntWritable> values,
@@ -19,7 +28,16 @@ public class MostReviewsReducer extends Reducer<Text, IntWritable, Text, IntWrit
         for (IntWritable val : values) {
             sum += val.get(); 
         }
-        //result.set(average);
-        //context.write(NullWritable.get(), result);
+        if(sum > maxCount) {
+        	maxCount = sum;
+        	reviewer = key.toString();
+        	
+        }
+        //context.write(key, result);
     }
+    @Override
+    protected void cleanup(Context context) throws IOException, InterruptedException {
+    	 context.write(new Text(reviewer),new IntWritable(maxCount));
+    }
+
 }
