@@ -20,8 +20,8 @@ public class MostLengthReducer extends Reducer<Text, IntWritable, Text, IntWrita
     private String reviewerName;
     @Override
     protected void setup(Context context) throws IOException, InterruptedException{
-    	maxLen = context.getConfiguration().getInt("maxLen", 0);
-    	reviewerName = context.getConfiguration().get("reviewerName");
+    	maxLen = context.getConfiguration().getInt("maxLen", 0); //global 변수
+    	reviewerName = context.getConfiguration().get("reviewerName"); //global 변수
     }
     @Override
     protected void reduce(Text key, Iterable<IntWritable> values,
@@ -29,16 +29,15 @@ public class MostLengthReducer extends Reducer<Text, IntWritable, Text, IntWrita
     	int cnt = 0;
         for (IntWritable val : values) {
             cnt = val.get(); 
-            if(cnt > maxLen) {
+            if(cnt > maxLen) { //가장긴 텍스트 찾기
             	maxLen = cnt;
             	reviewerName = key.toString();
             }
         }
       
     }
-    
     @Override
     protected void cleanup(Context context) throws IOException, InterruptedException {
-    	 context.write(new Text(reviewerName),new IntWritable(maxLen));
+    	 context.write(new Text(reviewerName),new IntWritable(maxLen)); //결과 write
     }
 }

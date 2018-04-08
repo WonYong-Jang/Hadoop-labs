@@ -15,7 +15,6 @@ import org.codehaus.jettison.json.JSONObject;
  *	리듀스로 key, value 쌍을 보내는 작업을 context.write
  */
 public class RatioMapper extends Mapper<LongWritable, Text, Text, FloatWritable> {
-   // private final static IntWritable one = new IntWritable(1);
     private Text word = new Text();
     
     @Override
@@ -29,13 +28,13 @@ public class RatioMapper extends Mapper<LongWritable, Text, Text, FloatWritable>
         try {
         	for(int i=0; i<tuple.length; i++) {
         		JSONObject obj = new JSONObject(tuple[i]); // json으로 파싱
-        		tempHelpful = obj.getString("helpful"); 
-        		a= tempHelpful.charAt(1) - '0';
+        		tempHelpful = obj.getString("helpful");  //helpful value 가져오기 [a, b]
+        		a= tempHelpful.charAt(1) - '0'; //  char -> int
         		b = tempHelpful.charAt(4) - '0';
-        		if(b > 10)
+        		if(b > 10) // b가 10보다 크다면
         		{
-        			resultRatio = (float)a/(float)b;
-        			asin = obj.getString("asin");
+        			resultRatio = (float)a/(float)b; // 비율 구해서 context에 write
+        			asin = obj.getString("asin"); // asin value 값 
         			word.set(asin);
         			context.write(word , new FloatWritable(resultRatio));
         		}

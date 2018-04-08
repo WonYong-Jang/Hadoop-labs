@@ -34,14 +34,5 @@ public class MostReviewsMapper extends Mapper<LongWritable, Text, Text, IntWrita
         }catch(JSONException e) {
         	e.printStackTrace();
         }
-        	
-        /*
-        StringTokenizer itr = new StringTokenizer(value.toString());
-        while(itr.hasMoreTokens()) {
-            word.set(itr.nextToken());
-            context.write(word, one);
-        
-        }
-        */
     }
 }
