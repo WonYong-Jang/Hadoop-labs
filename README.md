@@ -12,4 +12,4 @@
    아이템 (asin) 의 아이디는?
 4. /shared-data/reviews_Books_5.json 에서 각 reviewer 별로 helpful 필드 값을 모았을때 ([a,b] 를 a 값과 b 값으로 각각 
    더함), 가장 높은 a 값을 가지는 사용자의 (reviewerID) 아아디는?
-5.
+5. /shared-data/reviews_Books_5.json 에서 각 reviewerText에서 가장 긴 리뷰를 남긴 reviewerName 값은?
