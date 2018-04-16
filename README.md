@@ -1,4 +1,4 @@
-# Hodoop-labs
+# Hadoop-labs
 
 모든 분석 작업은 MapReduce 프로그램으로 작성
 
